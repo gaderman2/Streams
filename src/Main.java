@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -23,11 +24,15 @@ public class Main {
 
                weaponList.add(new Weapon(parts[0], CombatType.valueOf(parts[1]), DamageType.valueOf(parts[2]),
                        Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6])));
-               System.out.println("Added weapon " + parts[0]);
            }
        }catch (IOException e){
            System.err.println(e.toString() + " occured!");
            e.printStackTrace();
        }
+
+       weaponList.sort((x, y) -> y.getDamage() - x.getDamage());
+
+       Printable printable = w -> w.forEach(System.out::println);
+       printable.print(weaponList);
     }
 }
