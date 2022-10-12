@@ -1,6 +1,12 @@
 package weapons;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Weapon {
 
@@ -22,8 +28,25 @@ public class Weapon {
         this.value = value;
     }
 
+    public static List<Weapon> readFile(String file) {
+        List<Weapon> weaponList = new ArrayList<>();
+        try {
+            Stream<String> lineStream = Files.lines(Paths.get(file));
+            lineStream.forEach(line -> {
+                String[] parts = line.split(";");
+
+                if(!parts[0].equals("name"))
+                    weaponList.add(new Weapon(parts[0], CombatType.valueOf(parts[1]), DamageType.valueOf(parts[2]),
+                            Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]), Integer.parseInt(parts[6])));
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return weaponList;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return name + " Type: " + combatType + " " + damageType + "; Stats: " + damage + " ATK " + speed + " SPD " + strength + " STR; Value: " + value;
     }
 
@@ -66,5 +89,9 @@ public class Weapon {
 
     public int getValue() {
         return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
