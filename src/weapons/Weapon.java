@@ -1,5 +1,7 @@
 package weapons;
 
+import java.util.Objects;
+
 public class Weapon {
 
     private String name;
@@ -23,6 +25,19 @@ public class Weapon {
     @Override
     public String toString(){
         return name + " Type: " + combatType + " " + damageType + "; Stats: " + damage + " ATK " + speed + " SPD " + strength + " STR; Value: " + value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Weapon weapon = (Weapon) o;
+        return damage == weapon.damage && speed == weapon.speed && strength == weapon.strength && value == weapon.value && name.equals(weapon.name) && combatType == weapon.combatType && damageType == weapon.damageType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, combatType, damageType, damage, speed, strength, value);
     }
 
     public String getName() {
