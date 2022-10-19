@@ -47,7 +47,7 @@ public class Weapon {
 
     @Override
     public String toString() {
-        return name + " Type: " + combatType + " " + damageType + "; Stats: " + damage + " ATK " + speed + " SPD " + strength + " STR; Value: " + value;
+        return "Weapon{" + "name=" + name + ", combatType=" + combatType + ", damageType=" + damageType + ", damage=" + damage + ", speed=" + speed + ", minStrength=" + strength + ", value=" + value + '}';
     }
 
     @Override
